@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let str;
+        let academy = [
+            ["D-1", 20, "design"],
+            ["S-6", 10, "cybersecurity"],
+            ["C-14", 13, "programming"],
+            ["A-3", 15, "game development"],
+            ["E-4", 15, "design"],
+            ["B-7", 11, "digital-marketing"]
+        ]
+        function ShowAll(array){
+            for (let i = 0; i < array.length; i++)
+            {
+                for (let j = 0; j < array[i].length; j++)
+                {
+                    if(j == array[i].length - 1)
+                    {
+                        document.write(array[i][j] + ". ");
+                    }
+                    else
+                    {
+                        document.write(array[i][j] + ", ");
+                    }
+                }
+                document.write("<br /><br />");
+            }
+        }
+
+        function ShowAudByFaculty(){
+            let faculty = prompt("Введите название факультатива:");
+            let counter = -1;  
+            str = "Показать все аудитории для "  + " <b>" + faculty + "</b>:";
+            document.write(str);  
+            document.write("<br />");
+            for (let i = 0; i < academy.length; i++)
+            {
+                for (let j = 0; j < academy[i].length; j++)
+                {
+                    
+                        if(academy[i][2] === faculty)
+                        {
+                            if(j == academy[i].length - 1)
+                            {
+                                document.write(academy[i][j] + ". ");
+                            }
+                            else
+                            {
+                                document.write(academy[i][j] + ", ");
+                            }
+                            counter++;
+                        }
+                        else if(counter == 0 && i == academy[i].length - 1 )
+                        {
+                            alert("Неверное название!");
+                        } 
+                }
+                document.write("<br />");
+            }
+        }
+        
+        function ShowByGroup(){
+            let name, amount, facul;
+            let count = 0;
+            name = prompt("Введите название группы: ");
+            amount = parseInt(prompt("Введите количество студентов: "));
+            facul = prompt("Введите название факультатива: ")
+            let group = [name, amount, facul];
+            str = "Подходящие аудитории для вашей группы <b>" + name + "</b> :";
+            document.write(str);  
+            document.write("<br />");
+            
+            for (let i = 0; i < academy.length; i++)
+            {
+                for (let j = 0; j < academy[i].length; j++)
+                {
+                    if(academy[i][1] >= amount && academy[i][2] === facul){
+                        if(j == academy[i].length - 1)
+                        {
+                            document.write(academy[i][j] + ". ");
+                        }
+                        else
+                        {
+                            document.write(academy[i][j] + ", ");
+                        }
+                        count++;
+                    }
+                    else if(count === 0 && i === academy[i].length - 1 )
+                    {
+                        alert("Походящих аудиторий нет!");
+                        document.write(0);
+                        break;
+                    } 
+                }
+                document.write("<br /><br />");
+            }
+        }
+
+        function SortByPlaces(array) {
+            str = "<b>Сортировка по кол-ву мест</b>:";
+            document.write(str);  
+            document.write("<br />");
+            return array.sort((a, b) => a[2] - b[2]);
+        }
+
+        function SortByName(array) {
+            str = "<b>Сортировка по названию аудитории</b>:";
+            document.write(str);  
+            document.write("<br />");
+            return array.sort();
+        }
+
+        let userAns;
+        document.write("[1] - Вывод всех аудиторий");
+        document.write("<br />");
+        document.write("[2] - Выбрать факультет");
+        document.write("<br />");
+        document.write("[3] - Выбрать аудиторию для группы");
+        document.write("<br />");
+        document.write("[4] - Отсортировать по кол-ву мест");
+        document.write("<br />");
+        document.write("[5] - Отсортировать по названию");
+        document.write("<br />");
+        document.write("<br />");
+        userAns = parseInt(prompt("Make a choice: "));
+
+        switch(userAns){
+            case 1: 
+                str = "<b>Все аудитории:</b> <br /><br />";
+                document.write(str);
+                ShowAll(academy);
+                break;
+            case 2: 
+                ShowAudByFaculty();
+                break;
+            case 3:
+                ShowByGroup();
+                break;
+            case 4: 
+                let SortedByPlace = SortByPlaces(academy);
+                ShowAll(SortedByPlace);
+                break;
+            case 5:
+                let SortedByName = SortByName(academy);
+                ShowAll(SortedByName);
+                break;
+            default:
+                alert("Wrong number!");
+                break;
+        }
+    </script>
+</body>
+</html>
